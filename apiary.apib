@@ -1,35 +1,39 @@
 FORMAT: 1A
 HOST: http://polls.apiblueprint.org/
 
-# Polls
+# luyan
 
-Polls is a simple API allowing consumers to view polls and vote in them.
+This is a simple API allowing database administrator to backup the Oracle database instance.
 
-## Messages Collection [/questions]
+## Backup Collection [/backups]
 
-### Retrieve Message [GET]
-+ Request
-    + Headers
+### Create a backup job [POST]
 
-            Authorization: Basic ABCDEF
++ Request (application/json)
+        
+        {
+            "jobName": "my job 1",
+            "dbUser": "oracle",
+            "dbPassword": "********",
+            "dbPort": 1521,
+            "serviceName": "pdb1"
+        }
+
++ Response 202
+
+### Retrieve backup jobs [GET]
 
 + Response 200 (application/json)
 
-        {
-            "message":"Hello World!"
-        }
-
-+ Request (application/json)
-    + Body
-
+        [
             {
-               "grant_type": "client_credentials"
+                "jobId": 1,
+                "jobName": "my job 1",
+                "jobStatus": "Completed"
+            },
+            {
+                "jobId": 2,
+                "jobName": "my job 2",
+                "jobStatus": "In Progress"
             }
-
-+ Response 401 (text/plain)
-
-        There is no such a message for you, dear guest.
-
-+ Response 410 (text/plain)
-
-        The message you are searching for does not exist anymore.
+        ]
